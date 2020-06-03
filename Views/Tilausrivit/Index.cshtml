@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebAppTilausDB.Models.Tilausrivit>
+
+@{
+    ViewBag.Title = "Tilausrivit";
+}
+
+<br />
+<h2>Tilausrivit</h2>
+<h4>Rivejä yhteensä @Model.Count() kpl</h4>
+
+<br />
+<p>@Html.ActionLink("Luo uusi", "Create", null, new { @class = "btn btn-success" })</p>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Tilausrivi ID</th>
+            <th>Tilaus ID</th>
+            <th>Tuote ID</th>
+            <th>Määrä</th>
+            <th>Á-hinta</th>
+            <th>Toiminnot</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>@Html.DisplayFor(modelItem => item.TilausriviID)</td>
+    <td>@Html.DisplayFor(modelItem => item.TilausID)</td>
+    <td>@Html.DisplayFor(modelItem => item.TuoteID)</td>
+    <td>@Html.DisplayFor(modelItem => item.Maara)</td>
+    <td>@Html.DisplayFor(modelItem => item.Ahinta)</td>
+    <td>
+        @Html.ActionLink("Muokkaa", "Edit", new { id = item.TilausriviID }, new { @class = "btn btn-primary" })
+        @*@Html.ActionLink("Tiedot", "Details", new { id = item.TilausriviID }, new { @class = "btn btn-info" })*@
+        @Html.ActionLink("Poista", "Delete", new { id = item.TilausriviID }, new { @class = "btn btn-danger" })
+    </td>
+</tr>
+    }
+
+</table>
+
+<script>
+    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+    const comparer = (idx, asc) => (a, b) =>
+        ((v1, v2) => v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2))(getCellValue(asc ? a : b, idx),
+            getCellValue(asc ? b : a, idx));
+
+    document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+        const table = th.closest('table');
+        const tbody = table.querySelector('tbody');
+        Array.from(tbody.querySelectorAll('tr'))
+            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+            .forEach(tr => tbody.appendChild(tr));
+    })));
+</script>

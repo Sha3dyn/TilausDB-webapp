@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - TilausDB</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">TilausDB</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/Home/Index">Etusivu<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hallintatyökalut</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/Asiakkaat/Index">Asiakkaat</a>
+                        <a class="dropdown-item" href="/Postitoimipaikat/Index">Postitoimipaikat</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/Tuotteet/Index">Tuotteet</a>
+                        <a class="dropdown-item" href="/Tilaukset/Index">Tilaukset</a>
+                        <a class="dropdown-item" href="/Tilausrivit/Index">Tilausrivit</a>
+                        @if (Session["Kayttajatunnus"] != null && Session["Kayttajatunnus"].ToString() == "admin")
+                        {
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/Kayttajat/Index">Käyttäjätilit</a>
+                        }
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Home/About">Yritys</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Home/Contact">Yhteystiedot</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Home/Map">Kartta</a>
+                </li>
+
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                @if (Session["Kayttajatunnus"] == null)
+                {
+                    <li class="nav-item text-md-right"><a class="nav-link" href="/Home/Login">Kirjaudu sisään</a></li>
+                }
+                else
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tervetuloa @Session["Kayttajatunnus"]</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="@Url.Action("logOut", "Home")">Kirjaudu ulos</a>
+                        </div>
+                    </li>
+                }
+                </ul>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - BlackFox Software Ltd</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

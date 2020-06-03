@@ -1,0 +1,39 @@
+﻿@model WebAppTilausDB.Models.Postitoimipaikat
+
+@{
+    ViewBag.Title = "Postitoimipaikat";
+}
+
+<br />
+<h2>Postitoimipaikat</h2>
+
+<div>
+    <h4>Haluatko varmasti poistaa postitoimipaikan @Model.Postitoimipaikka?</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Postitoimipaikka)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postitoimipaikka)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postinumero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postinumero)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Poista" class="btn btn-default" /> |
+            @Html.ActionLink("Peruuta", "Index")
+        </div>
+    }
+</div>

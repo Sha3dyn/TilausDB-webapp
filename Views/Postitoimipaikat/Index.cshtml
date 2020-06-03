@@ -1,0 +1,50 @@
+﻿@model IEnumerable<WebAppTilausDB.Models.Postitoimipaikat>
+
+@{
+    ViewBag.Title = "Postinumerot ja postitoimipaikat";
+}
+
+<br />
+<h2>Postitoimipaikat</h2>
+
+<br />
+<p>@Html.ActionLink("Luo uusi", "Create", null, new { @class = "btn btn-success" })</p>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Postinumero)</th>
+            <th>@Html.DisplayNameFor(model => model.Postitoimipaikka)</th>
+            <th>Toiminnot</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Postinumero)</td>
+            <td>@Html.DisplayFor(modelItem => item.Postitoimipaikka)</td>
+            <td>
+                @Html.ActionLink("Muokkaa", "Edit", new { id = item.Postinumero }, new { @class = "btn btn-primary" }) 
+                @*@Html.ActionLink("Tiedot", "Details", new { id = item.Postinumero }, new { @class = "btn btn-info" })*@ 
+                @Html.ActionLink("Poista", "Delete", new { id = item.Postinumero }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script>
+    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+    const comparer = (idx, asc) => (a, b) =>
+        ((v1, v2) => v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2))(getCellValue(asc ? a : b, idx),
+            getCellValue(asc ? b : a, idx));
+
+    document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+        const table = th.closest('table');
+        const tbody = table.querySelector('tbody');
+        Array.from(tbody.querySelectorAll('tr'))
+            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+            .forEach(tr => tbody.appendChild(tr));
+    })));
+</script>

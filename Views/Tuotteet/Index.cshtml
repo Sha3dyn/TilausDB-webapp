@@ -1,0 +1,76 @@
+﻿@*Alustetaan sivu, jotta voidaan viitata tässä tuotteisiin*@
+@model IEnumerable<WebAppTilausDB.Models.Tuotteet>
+
+@{
+    ViewBag.Title = "Tuotteet";
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $(".showProductId").click(function () {
+                var tuoteId = $(this).data("tuoteid");
+                alert(tuoteId);
+            });
+        });
+
+        $(function () {
+            $("#poistaTuote").click(function () {
+                var tuoteId = $(this).data("tuoteid");
+                alert(tuoteId);
+            });
+        });
+    </script>
+}
+
+<div class="container-fluid">
+    <br />
+    <h2>Tuotteet</h2>
+    <h4>Tuotteita yhteensä @Model.Count() kpl</h4>
+
+    <br />
+    <p>@Html.ActionLink("Luo uusi", "Create", null, new { @class = "btn btn-success" })</p>
+
+    <div class="row">
+        @foreach (WebAppTilausDB.Models.Tuotteet tuote in Model)
+        {
+            <div class="col-lg-3">
+                <div class="card mb-3">
+                    <h3 class="card-header">@tuote.Nimi</h3>
+                    <div class="card-body">
+                        <h5 class="card-title">@tuote.Ahinta € / kpl</h5>
+                    </div>
+                    <div>
+                        <img style="height: 200px; width: 100%; display: block;" src="@tuote.Kuvalinkki" alt="@tuote.Kuvalinkki">
+                    </div>
+                    <div class="card-body">
+                        @Html.ActionLink("Muokkaa", "Edit", new { id = tuote.TuoteID }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Poista", "Delete", new { id = tuote.TuoteID }, new { @class = "btn btn-danger" })
+                    </div>
+                    <div class="card-footer text-muted"></div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    function naytaValittuTuote(tuoteID) {
+        alert(tuoteID);
+    }
+</script>
+<script>
+    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+    const comparer = (idx, asc) => (a, b) =>
+        ((v1, v2) => v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2))(getCellValue(asc ? a : b, idx),
+            getCellValue(asc ? b : a, idx));
+
+    document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+        const table = th.closest('table');
+        const tbody = table.querySelector('tbody');
+        Array.from(tbody.querySelectorAll('tr'))
+            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+            .forEach(tr => tbody.appendChild(tr));
+    })));
+</script>
+

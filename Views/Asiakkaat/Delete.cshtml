@@ -1,0 +1,48 @@
+﻿@model WebAppTilausDB.Models.Asiakkaat
+
+@{
+    ViewBag.Title = "Asiakkaat";
+}
+
+<br />
+<h2>Asiakkaat</h2>
+
+<div>
+    <h4>Haluatko varmasti poistaa asiakkaan @Model.Nimi?</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nimi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nimi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Osoite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Osoite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postitoimipaikat.Postitoimipaikka)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postitoimipaikat.Postitoimipaikka)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Poista" class="btn btn-default" /> |
+            @Html.ActionLink("Peruuta", "Index")
+        </div>
+    }
+</div>

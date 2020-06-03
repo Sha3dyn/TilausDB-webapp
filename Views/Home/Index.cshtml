@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "TilausDB hallintasivu";
+}
+
+<div class="jumbotron">
+    <h1>BlackFox Software Ltd</h1>
+    <p class="lead">TilausDB tietokantasovellus asiakkaiden, tuotteiden ja tilausten hallinnointiin. Kirjaudu sisään aloittaaksesi sovelluksen käyttö.</p>
+    <p><a href="/Home/Login" class="btn btn-primary btn-lg">Kirjautumiseen &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Tuotteet</h2>
+        <p>
+            Pidä tietokannassa oleva tuoteluettelo ajan tasalla. Hallinnoi luomalla uusia, muokkaamalla tai poistamalla.
+        </p>
+        <p><a class="btn btn-default" href="/Tuotteet/Index">Tuotehallinta &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Asiakkaat</h2>
+        <p>Aloita uusia asiakkuuksia tai päivitä ja muokkaa tietokannassa jo olevia asiakastietoja ja asiakkaita. </p>
+        <p><a class="btn btn-default" href="/Asiakkaat/Index">Asiakashallinta &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Tilaukset</h2>
+        <p>Aloita tilausten tarkastelu, käsittely ja muokkaus tilaushallinnassa.</p>
+        <p><a class="btn btn-default" href="/Tilaukset/Index">Tilaushallinta &raquo;</a></p>
+    </div>
+</div>
